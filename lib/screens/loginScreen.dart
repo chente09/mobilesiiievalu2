@@ -1,5 +1,4 @@
 // ignore: file_names
-import 'package:evaluacion2/main.dart';
 import 'package:evaluacion2/screens/bottomTabScreen.dart';
 import 'package:evaluacion2/screens/resgisterScreen.dart';
 import 'package:flutter/material.dart';
@@ -126,6 +125,11 @@ void register(context) {
 
 Future<void> login(String email, String pass, BuildContext context) async {
   try {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: pass,
+    );
+
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => Bottomtabscreen()),
@@ -133,7 +137,6 @@ Future<void> login(String email, String pass, BuildContext context) async {
   } on FirebaseAuthException catch (e) {
     String errorMessage;
 
-    // Manejo de errores específicos
     if (e.code == 'user-not-found') {
       errorMessage = 'No se encontró un usuario con ese correo.';
     } else if (e.code == 'wrong-password') {
@@ -147,7 +150,6 @@ Future<void> login(String email, String pass, BuildContext context) async {
       errorMessage = 'Ocurrió un error inesperado. Intenta nuevamente.';
     }
 
-    // Mostrar alerta al usuario
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -155,13 +157,15 @@ Future<void> login(String email, String pass, BuildContext context) async {
           backgroundColor: const Color(0xFF1F1B24),
           title: const Text('Error de inicio de sesión',
               style: TextStyle(color: Colors.white)),
-          content: Text(errorMessage, style: const TextStyle(color: Colors.white70)),
+          content:
+              Text(errorMessage, style: const TextStyle(color: Colors.white70)),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Aceptar', style: TextStyle(color: Color(0xFF537EB8))),
+              child: const Text('Aceptar',
+                  style: TextStyle(color: Color(0xFF537EB8))),
             ),
           ],
         );

@@ -69,7 +69,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Ir a Login') ,
+                child: const Text('Ir a Login', style: TextStyle(color: Colors.white)) ,
               ),
               const SizedBox(height: 10),
               ElevatedButton(
@@ -81,7 +81,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Ir a Registro'),
+                child: const Text('Ir a Registro', style: TextStyle(color: Colors.white)),
               ),
               const SizedBox(height: 30),
               const Divider(color: Colors.white54),
